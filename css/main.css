@@ -97,6 +97,8 @@ strong {
 .form {
   display: flex;
   width: 100%;
+  max-width: 450px;
+  margin-inline: auto;
   font-weight: 700;
 }
 .form__input {
@@ -197,4 +199,11 @@ strong {
   margin-top: 40px;
   font-size: 14px;
   color: rgba(var(--text-color-rgb), 0.81);
+}
+
+@media (min-width: 601px) {
+  body {
+    max-width: 600px;
+    margin-inline: auto;
+  }
 }
