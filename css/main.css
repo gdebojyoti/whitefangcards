@@ -118,6 +118,7 @@ strong {
   background-color: rgb(var(--primary-color-rgb));
   white-space: nowrap;
   border-radius: 0 10px 10px 0;
+  cursor: pointer;
 }
 
 .section {
