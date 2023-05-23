@@ -36,6 +36,7 @@ window.onload = () => {
 
 function triggerAlert (type, msg) {
   console.log("type, msg", type, msg)
+  alert(msg)
 }
 
 function isEmailValid (email) {
