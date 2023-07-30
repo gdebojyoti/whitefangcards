@@ -15,7 +15,7 @@ window.onload = () => {
   console.log("I got in")
   const emailForm = document.getElementById(FORM_ID)
 
-  emailForm.addEventListener("submit", async (e) => {
+  emailForm && emailForm.addEventListener("submit", async (e) => {
     console.log("submittin form", e)
     e.stopPropagation()
     e.preventDefault()
@@ -24,12 +24,14 @@ window.onload = () => {
 
     // for missing or invalid emails
     if (!emailvalue || !isEmailValid(emailvalue)) {
+      gaEvent({ label: 'invalid_email'})
       triggerAlert(ALERT_TYPE.ERROR, MSGS.INVALID_EMAIL)
       return
     }
 
     // for valid emails
     const { msg, status } = await saveEmail(emailvalue) || {}
+    gaEvent({ label: status ? 'failure' : 'success'})
     triggerAlert(status ? ALERT_TYPE.ERROR : ALERT_TYPE.SUCCESS, msg)
   })
 }
@@ -41,6 +43,13 @@ function triggerAlert (type, msg) {
 
 function isEmailValid (email) {
   return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
+}
+
+function gaEvent ({category = 'wfc_events', action = 'button_click', label}) {
+  gtag('event', action, {
+    'event_category': category,
+    'event_label': label
+  });
 }
 
 async function saveEmail (email) {
